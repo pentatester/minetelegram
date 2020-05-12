@@ -1,0 +1,22 @@
+{
+  "name": "minetelegram",
+  "version": "0.0.1",
+  "description": "Minecraft - Telegram bridge, build on top of mineflayer & telegraf.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexatester/minetelegram.git"
+  },
+  "keywords": [
+    "minecraft", "telegram", "nodejs", "bot"
+  ],
+  "author": "Habib R",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hexatester/minetelegram/issues"
+  },
+  "homepage": "https://github.com/hexatester/minetelegram#readme"
+}
