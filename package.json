@@ -11,12 +11,19 @@
     "url": "git+https://github.com/hexatester/minetelegram.git"
   },
   "keywords": [
-    "minecraft", "telegram", "nodejs", "bot"
+    "minecraft",
+    "telegram",
+    "nodejs",
+    "bot"
   ],
   "author": "Habib R",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hexatester/minetelegram/issues"
   },
-  "homepage": "https://github.com/hexatester/minetelegram#readme"
+  "homepage": "https://github.com/hexatester/minetelegram#readme",
+  "dependencies": {
+    "mineflayer": "^2.14.1",
+    "telegraf": "^3.38.0"
+  }
 }
