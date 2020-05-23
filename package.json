@@ -24,6 +24,7 @@
   "homepage": "https://github.com/hexatester/minetelegram#readme",
   "dependencies": {
     "mineflayer": "^2.14.1",
-    "telegraf": "^3.38.0"
+    "telegraf": "^3.38.0",
+    "telegraf-inline-menu": "^4.0.1"
   }
 }
