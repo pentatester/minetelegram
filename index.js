@@ -1,6 +1,6 @@
 if (process.argv.length < 3 || process.argv.length > 6) {
   console.log(
-    "Usage : node fisherman.js <bot_token> <telegram_id> <mc_username> <mc_password>"
+    "Usage : node index.js <bot_token> <telegram_id> <mc_username> <mc_password>"
   );
   process.exit(1);
 }
@@ -19,6 +19,7 @@ const username_ = process.argv[4];
 const password_ = process.argv[5];
 
 let bot;
+let listen = false;
 
 telegram.use(async (ctx, next) => {
   // middleware
@@ -26,6 +27,25 @@ telegram.use(async (ctx, next) => {
     await next();
   }
 });
+
+function pm(message) {
+  telegram.sendMessage(admin, message);
+}
+
+function toggle(mode) {
+  if (mode) {
+    listen = mode;
+  } else {
+    listen = !listen;
+  }
+  if (listen) {
+    ctx.reply("Listen mode : ON");
+  } else {
+    ctx.reply("Listen mode : OFF");
+  }
+}
+
+telegram.command("toggle", (ctx) => toggle());
 
 telegram.command("connect", (ctx) => {
   if (ctx.message && ctx.message.text.split(" ").length === 3) {
@@ -36,6 +56,21 @@ telegram.command("connect", (ctx) => {
         password: password_,
         host: con[1],
         port: con[2],
+      });
+      toggle(true);
+      bot.on("message", (message) => {
+        try {
+          if (listen) return pm(message);
+        } catch (error) {
+          return pm(`Error : ${error.message}`);
+        }
+      });
+      telegram.on("message", (ctx) => {
+        try {
+          if (bot !== null && listen) return bot.chat(ctx.message.text);
+        } catch (error) {
+          return pm(`Error : ${error.message}`);
+        }
       });
     } catch (error) {
       ctx.reply(`Error : ${error.message}`);
