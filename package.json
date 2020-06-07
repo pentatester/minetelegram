@@ -1,14 +1,17 @@
 {
   "name": "minetelegram",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Minecraft - Telegram bridge, build on top of mineflayer & telegraf.",
   "main": "index.js",
+  "bin": {
+    "minetelegram": "./cli.js"
+  },
   "scripts": {
     "test": "npm run lint"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hexatester/minetelegram.git"
+    "url": "https://github.com/hexatester/minetelegram"
   },
   "keywords": [
     "minecraft",
@@ -21,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/hexatester/minetelegram/issues"
   },
-  "homepage": "https://github.com/hexatester/minetelegram#readme",
+  "homepage": "https://github.com/hexatester/minetelegram",
   "dependencies": {
     "argparse": "^1.0.10",
     "mineflayer": "^2.19.0",
