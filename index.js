@@ -2,12 +2,14 @@ const VERSION = '0.7.5'
 const assert = require('assert')
 
 function inject (bot, telegramOptions) {
-  assert.ok(
+  assert.notEqual(
     telegramOptions.token,
+    undefined,
     new Error('Token not found! pm @botfather to get one')
   )
-  assert.ok(
+  assert.notEqual(
     telegramOptions.user,
+    undefined,
     new Error('User id not found! pm @myidbot to get one')
   )
   const telegram = require('./src/telegram')
