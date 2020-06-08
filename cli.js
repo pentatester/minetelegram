@@ -1,4 +1,6 @@
-const { VERSION, inject } = require('./index')
+const VERSION = '0.6.0'
+
+const inject = require('./index')
 
 const { ArgumentParser } = require('argparse')
 const { createBot } = require('mineflayer')
