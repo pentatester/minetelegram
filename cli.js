@@ -1,4 +1,4 @@
-const VERSION = '0.7.1'
+const VERSION = '0.7.5'
 
 const inject = require('./index')
 

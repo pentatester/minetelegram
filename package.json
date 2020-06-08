@@ -1,6 +1,6 @@
 {
   "name": "minetelegram",
-  "version": "0.7.1",
+  "version": "0.7.5",
   "description": "Minecraft - Telegram bridge, build on top of mineflayer & telegraf.",
   "main": "index.js",
   "bin": {
