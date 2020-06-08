@@ -1,29 +1,48 @@
-function inject (bot, { token, user, echo, ignoreMessages }, VERSION) {
+function inject (
+  bot,
+  { token, user, echo = true, ignoreMessages = [], commands = {} },
+  VERSION
+) {
+  user = parseInt(user, 10)
   const { Telegraf, Telegram } = require('telegraf')
   const telegram = new Telegraf(token)
   const telegramClient = new Telegram(token)
+
+  const inventory = require('./inventory')
+  bot.loadPlugin(inventory)
+
   let listen = true
   if (user) {
-    telegram.use(async (ctx, next) => {
-      try {
-        if (ctx.chat.id === user) {
-          await next()
-        }
-      } catch (error) {
-        console.error(JSON.stringify(error))
+    telegram.use((ctx, next) => {
+      if (ctx.chat.id === user) {
+        next()
+      } else {
+        ctx.reply('Unauthorized!')
       }
     })
   }
 
+  telegram.catch((err, ctx) => {
+    console.log(`Ooops, encountered an error for ${ctx.updateType}`, err)
+  })
+
   // Ignored messages
-  let ignores = [
-    '/start',
-    '/listen',
-    '/ignore',
-    '/inventory',
-    '/version'
-  ].concat(ignoreMessages)
-  const ignore = msg => ignores.includes(msg)
+  let ignoredMessage = ['/start', '/listen', '/ignore'].concat(ignoreMessages)
+  const ignore = msg => ignoredMessage.includes(msg)
+  const defaulCommands = {
+    inventory: ctx => ctx.reply(bot.inventorySayItems()),
+    version: ctx => ctx.reply(VERSION)
+  }
+  commands = Object.assign({}, defaulCommands, commands)
+  function registerCommands (commands = {}) {
+    if (commands && Object.keys(commands).length > 0) {
+      const keys = Object.keys(commands)
+      keys.forEach(command => {
+        ignoredMessage.push(`/${command}`)
+        telegram.command(command, commands[command])
+      })
+    }
+  }
 
   // /start command
   telegram.start(ctx =>
@@ -31,27 +50,29 @@ function inject (bot, { token, user, echo, ignoreMessages }, VERSION) {
       Hi!
       Usage :
       <code>/listen</code> - To toggle listen mode
-      <code>/ignore <text></code> - Prevent message to be sent into bot.chat on listen mode, eg <code>/ignore /start</code>
+      <code>/ignore text</code> - Prevent message to be sent into bot.chat on listen mode, eg <code>/ignore /start</code>
+      <code>/inventory</code> - Show inventory
       `)
   )
 
   // /ignore command - ignore message
-  telegram.command('ignore', ctx => {
+  function ignoreCommand (ctx) {
     const message = ctx.message.text || ''
     const text = message.split(' ')[-1]
-    if (ignores.includes(text)) {
+    if (ignoredMessage.includes(text)) {
       return ctx.reply(`${text} already in ignore list`)
     }
     try {
-      ignores.push(text)
+      ignoredMessage.push(text)
     } catch (error) {
       return ctx.reply(`Failed to ignore, reason : ${error.message}`)
     }
     return ctx.reply(`Successfuly added ${text} into ignore list`)
-  })
+  }
+  telegram.command('ignore', ignoreCommand)
 
   // /listen command
-  telegram.command('listen', ({ reply }) => {
+  function listenCommand ({ reply }) {
     if (listen) {
       listen = false
       reply('Listen mode disabled')
@@ -59,16 +80,13 @@ function inject (bot, { token, user, echo, ignoreMessages }, VERSION) {
       listen = true
       reply('Listen mode enabled')
     }
-  })
+  }
+  telegram.command('listen', listenCommand)
 
-  // /inventory
-  telegram.command('inventory', ({ reply }) => reply(bot.inventorySayItems()))
-
-  // /version command
-  telegram.command('version', ({ reply }) => reply(VERSION))
+  registerCommands(commands)
 
   // Telegram -> bot.chat if listen === true
-  telegram.on('text', ctx => {
+  function text (ctx) {
     if (
       listen &&
       ctx.message &&
@@ -77,23 +95,30 @@ function inject (bot, { token, user, echo, ignoreMessages }, VERSION) {
     ) {
       bot.chat(ctx.message.text)
     }
-    if (echo) console.log(`<- ${ctx.message.text}`)
-  })
+    if (echo) {
+      if (ignore(ctx.message.text)) {
+        console.log(`<- ${ctx.message.text}`)
+      } else console.log(`|<- ${ctx.message.text}`)
+    }
+  }
+  telegram.on('text', text)
 
   // Minecraft chat -> telegram
-  bot.on('message', message => {
+  function message (message) {
+    // get message length
     let length = message && message.length ? message.length() : 0
     if (listen && message && length > 0) {
       telegramClient.sendMessage(user, message.toString())
     }
     if (echo) console.log(`-> ${message.toString() || message}`)
-  })
+  }
+  bot.on('message', message)
 
   // Inject into bot object
   bot.telegraf = telegram
   bot.telegram = telegramClient
   bot.sendMessage = text => telegramClient.sendMessage(user, text)
-  bot.addToIgnore = text => ignores.push(text)
+  bot.addToIgnore = text => ignoredMessage.push(text)
   bot.once('login', () => telegram.launch())
 }
 

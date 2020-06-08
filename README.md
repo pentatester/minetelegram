@@ -59,12 +59,13 @@ const bot = mineflayer.createBot({
 });
 
 const minetelegram = require("minetelegram");
+const telegramOptions = {
+  token: BOT_TOKEN, // telegram bot token, created from @botfather,
+  user: TELEGRAM_ID, // your telegram user id, get your id from @myidbot
+  echo: true, // echo everything to console?, default : true
+};
 
-BOT_TOKEN = "your:bot_token"; // telegram bot token, created from @botfather
-TELEGRAM_ID = ""; // your telegram user id, get your id from @myidbot
-ECHO = true; // echo everything to console?, default : true
-
-minetelegram(bot, BOT_TOKEN, TELEGRAM_ID, ECHO);
+minetelegram(bot, telegramOptions);
 ```
 
 #### API
@@ -84,6 +85,31 @@ TL;DR
 
 `bot.addToIgnore(text)` to ignore text / message to be sent when listen mode is enabled
 `bot.sendMessage(message)` send text message to telegram.
+
+##### Adding commands
+
+You can add new telegram commands, adding object at `commands` key on telegramOptions.
+
+Example
+
+```js
+function sayHi() {
+  return bot.chat("Hi!");
+}
+
+const myCommands = {
+  "say_hi": sayHi, // send /say_hi on telegram to check if working
+};
+
+const telegramOptions = {
+  token: BOT_TOKEN, // telegram bot token, created from @botfather,
+  user: TELEGRAM_ID, // your telegram user id, get your id from @myidbot
+  echo: true, // echo everything to console?, default : true
+  commands: myCommands
+};
+
+minetelegram(bot, telegramOptions);
+```
 
 ## Roadmap
 

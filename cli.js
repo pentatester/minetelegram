@@ -1,4 +1,4 @@
-const VERSION = '0.6.0'
+const VERSION = '0.7.1'
 
 const inject = require('./index')
 
@@ -53,4 +53,9 @@ const botOptions = {
 }
 const bot = createBot(botOptions)
 const echo = args.echo && args.echo === 'on'
-inject(bot, args.token, args.id, echo)
+const telegramOptions = {
+  token: args.token,
+  user: args.id,
+  echo
+}
+inject(bot, telegramOptions)
