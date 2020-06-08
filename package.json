@@ -12,7 +12,10 @@
   "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/hexatester/minetelegram"
+    "url": "git@github.com:hexatester/minetelegram.git"
+  },
+  "engines": {
+    "node": ">=10"
   },
   "keywords": [
     "minecraft",

@@ -1,5 +1,9 @@
 # minetelegram
 
+[![NPM version](https://img.shields.io/npm/v/minetelegram?label=npm%20package)](https://www.npmjs.com/package/minetelegram)
+[![NPM version](https://img.shields.io/node/v/minetelegram)](https://www.npmjs.com/package/minetelegram)
+[![License](https://img.shields.io/npm/l/minetelegram)](https://github.com/hexatester/minetelegram/blob/master/LICENSE)
+
 Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ## Features
