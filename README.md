@@ -25,6 +25,12 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ### Standalone
 
+Instalation :
+
+`npm install -g mineflayer`
+
+Example :
+
 ```bash
 minetelegram --token BOT_TOKEN --id TELEGRAM_USER_ID --username myusername --server play.myserver.mine --mcversion 1.13.2
 ```
@@ -71,6 +77,13 @@ Optional arguments:
 ```
 
 ### As mineflayer plugin
+
+
+Instalation :
+
+`npm install mineflayer --save`
+
+Example :
 
 ```js
 const mineflayer = require("mineflayer");
