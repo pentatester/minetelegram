@@ -25,7 +25,7 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ### Standalone
 
-Instalation :
+Installation :
 
 `npm install -g mineflayer`
 
@@ -78,8 +78,7 @@ Optional arguments:
 
 ### As mineflayer plugin
 
-
-Instalation :
+Installation :
 
 `npm install mineflayer --save`
 
