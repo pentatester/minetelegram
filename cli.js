@@ -1,4 +1,4 @@
-const VERSION = '0.7.5'
+const VERSION = '0.8.0'
 
 const inject = require('./index')
 
@@ -36,11 +36,42 @@ parser.addArgument(['--port'], {
 parser.addArgument(['-mcv', '--mcversion'], {
   help: 'minecraft version, eg "1.13.2"'
 })
+parser.addArgument(['-c', '--chat'], {
+  defaultValue: 'on',
+  choices: ['on', 'off'],
+  help: 'Send every chat to telegram, default : on'
+})
+parser.addArgument(['-w', '--whisper'], {
+  defaultValue: 'on',
+  choices: ['on', 'off'],
+  help: 'Send every whisper to telegram, default : on'
+})
+parser.addArgument(['-m', '--message'], {
+  defaultValue: 'off',
+  choices: ['on', 'off'],
+  help:
+    'Send every message packet to telegram. Turning this on will overide --chat & --whisper to off, default : off'
+})
+parser.addArgument(['-f', '--filters'], {
+  help:
+    'Value dilimited by ;, eg. "welcome;bye" this will prevent send to telegram chat message containing welcome or bye'
+})
 parser.addArgument(['-e', '--echo'], {
   defaultValue: 'on',
   choices: ['on', 'off'],
   help: 'echo everything to console?, default : on'
 })
+
+function parseFilters (filters = '') {
+  if (filters.includes(';')) return filters.split(';')
+  return filters
+}
+
+function getBool (prop, defaults) {
+  if (prop === 'on') return true
+  if (prop === 'off') return false
+  return defaults
+}
 
 const args = parser.parseArgs()
 const botOptions = {
@@ -51,11 +82,25 @@ const botOptions = {
   'online-mode': typeof args.password === 'string',
   version: args.mcversion || false
 }
-const bot = createBot(botOptions)
+
 const echo = args.echo && args.echo === 'on'
 const telegramOptions = {
   token: args.token,
   user: args.id,
-  echo
+  echo,
+  filters:
+    typeof args.filters === 'string' && args.filters.length > 0
+      ? parseFilters(args.filters)
+      : [],
+  commands: {},
+  chat: getBool(args.chat, true),
+  whisper: getBool(args.whisper, true),
+  message: getBool(args.message, false)
 }
+
+const bot = createBot(botOptions)
 inject(bot, telegramOptions)
+
+bot.on('error', err => {
+  console.log('Ooops, encountered an error', err)
+})

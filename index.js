@@ -1,4 +1,4 @@
-const VERSION = '0.7.5'
+const VERSION = '0.8.0'
 const assert = require('assert')
 
 function inject (bot, telegramOptions) {

@@ -21,8 +21,9 @@ minetelegram --token BOT_TOKEN --id TELEGRAM_USER_ID --username myusername --ser
 If you stuck? do `minetelegram --help`
 
 ```txt
-minetelegram [-h] [-v] -t TOKEN -i ID -u USERNAME [-p PASSWORD] [-s SERVER]
-                [--port PORT] [-mcv MCVERSION] [-e {on,off}]
+usage: minetelegram [-h] [-v] -t TOKEN -i ID -u USERNAME [-p PASSWORD] [-s SERVER]
+                [--port PORT] [-mcv MCVERSION] [-c {on,off}] [-w {on,off}]
+                [-m {on,off}] [-f FILTERS] [-e {on,off}]
 
 
 Minecraft - Telegram bridge
@@ -42,6 +43,18 @@ Optional arguments:
   --port PORT           minecraft server port, default : 25565
   -mcv MCVERSION, --mcversion MCVERSION
                         minecraft version, eg "1.13.2"
+  -c {on,off}, --chat {on,off}
+                        Send every chat to telegram, default : on
+  -w {on,off}, --whisper {on,off}
+                        Send every whisper to telegram, default : on
+  -m {on,off}, --message {on,off}
+                        Send every message packet to telegram. Turning this
+                        on will overide --chat & --whisper to off, default :
+                        off
+  -f FILTERS, --filters FILTERS
+                        Value dilimited by ;, eg. "welcome;bye" this will
+                        prevent send to telegram chat message containing
+                        welcome or bye
   -e {on,off}, --echo {on,off}
                         echo everything to console?, default : on
 ```
@@ -98,14 +111,14 @@ function sayHi() {
 }
 
 const myCommands = {
-  "say_hi": sayHi, // send /say_hi on telegram to check if working
+  say_hi: sayHi, // send /say_hi on telegram to check if working
 };
 
 const telegramOptions = {
   token: BOT_TOKEN, // telegram bot token, created from @botfather,
   user: TELEGRAM_ID, // your telegram user id, get your id from @myidbot
   echo: true, // echo everything to console?, default : true
-  commands: myCommands
+  commands: myCommands,
 };
 
 minetelegram(bot, telegramOptions);
