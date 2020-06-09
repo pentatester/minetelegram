@@ -9,6 +9,17 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 ## Features
 
 - Listen mode (Toggleable)
+- Pm / Whisper notification
+
+## Commands
+
+```txt
+- /start
+- /ignore <text> - Prevent text to be sent into chat on listen mode
+- /inventory - Show current inventory
+- /listen - To toggle listen mode
+- /send <message> - Send message to chat
+```
 
 ## Usage
 
@@ -111,7 +122,7 @@ function sayHi() {
 }
 
 const myCommands = {
-  say_hi: sayHi, // send /say_hi on telegram to check if working
+  say_hi: sayHi, // send /say_hi on telegram to execute sayHi
 };
 
 const telegramOptions = {
@@ -127,4 +138,7 @@ minetelegram(bot, telegramOptions);
 ## Roadmap
 
 - Support inventory
-- Notify on pm
+- Markdown
+- Chest interact
+- Fishing
+- Simple navigation
