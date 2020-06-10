@@ -10,7 +10,8 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ## Features
 
-- Listen mode (Toggleable)
+- Multi user support
+- Listen mode
 - Pm / Whisper notification
 
 ## Commands
