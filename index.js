@@ -176,11 +176,12 @@ Dimension : ${game.dimension}
   }
 
   addCommand (name, command, info = 'no info') {
-    assert.strictEqual(
-      typeof func,
-      'function',
-      'func should be as function (telegraf.context as arg)'
-    )
+    if (typeof name !== 'string') {
+      return Error('name should be a string (telegraf.context as arg)')
+    }
+    if (typeof command !== 'function') {
+      return Error('command should be a function (telegraf.context as arg)')
+    }
     this.commands[name] = command
     this.userCommands.push(`${name} - ${info}`)
   }
