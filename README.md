@@ -73,6 +73,7 @@ const minetelegramOptions = {
   echo: true,
   filters: [], // default filters for bot
   commands: {}, // default commands? not recomended
+  plugins: [], // list of mineflayer your plugins
   chat: true, // send minecraft chat to telegram
   whisper: true, // send minecraft whisper to telegram
   message: false // send all minecraft message to telegram, enabling this will overide chat & whisper to false
@@ -80,7 +81,17 @@ const minetelegramOptions = {
 
 const minetelegram = createMinetelegram(minetelegramOptions)
 
-// add your code here
+// add your code here !!!
+
+// add plugin to use in each instance of bot
+
+function somePlugin (bot) {
+  function someFunction() {
+    bot.chat('Yay!');
+  }
+  bot.someFunction = someFunction;
+minetelegram.addPlugin(somePlugin)
+
 // to create a bot instance
 const bot = minetelegram.createBot({
   host: 'localhost', // optional

@@ -1,4 +1,4 @@
-const VERSION = '0.9.0'
+const VERSION = '0.9.1'
 
 const { Telegraf, Telegram } = require('telegraf')
 const { createBot } = require('mineflayer')
@@ -22,6 +22,8 @@ class Minetelegram {
     this.token = options.token
     this.user = parseInt(options.user, 10)
     this.commands = Object.assign({}, commands, options.commands)
+    let plugins = [inventory].concat(options.plugins)
+    this.plugins = plugins.filter(plugin => typeof plugin === 'function')
     this.defaults = {
       filters: options.filters || [],
       chatEnabled: options.chat || true,
@@ -44,7 +46,7 @@ class Minetelegram {
       '/ignore',
       '/help'
     ]
-    this.userCommands = []
+    this.userCommands = ['User commands :']
     const telegraf = new Telegraf(this.token)
     const telegram = new Telegram(this.token)
     telegraf.context.db = {
@@ -61,8 +63,19 @@ class Minetelegram {
       createBot: options => {
         return this.createBot(options)
       },
+      deleteBot: bot => {
+        if (this.instances.hasOwnProperty(bot.username)) {
+          return delete this.instances[bot.username]
+        }
+      },
       getIgnoredCommands: () => {
         return this.ignoredCommands
+      },
+      getUserCommans: () => {
+        return this.userCommands
+      },
+      getStatus: bot => {
+        return this.getStatus(bot)
       }
     }
     this.telegraf = telegraf
@@ -107,12 +120,32 @@ class Minetelegram {
     bot.telegram = this.telegram
     bot.listen = false
     bot.ignoredCommands = this.ignoredCommands
-    bot.loadPlugin(inventory)
+    bot.loadPlugins(this.plugins)
     minecraft(bot, {
       user: this.user
     })
     if (this.overide) this.bot = bot
     return bot
+  }
+
+  getStatus (bot) {
+    function status ({ username, health, food, game }) {
+      return `
+      ${username}
+Health    : ${health}
+Food      : ${food}
+Dimension : ${game.dimension}
+      `
+    }
+    if (bot) return status(bot)
+    if (Object.keys(this.instances).length === 0) {
+      return 'No minecraft instance running.'
+    }
+    let status_ = []
+    for (var username in this.instances) {
+      status_.push(status(this.instances[username]))
+    }
+    return status_.join('\n\n')
   }
 
   textFilter (ctx) {
@@ -136,6 +169,10 @@ class Minetelegram {
     if (bot.echoEnabled) {
       console.log(`<- ${ctx.message.text}`)
     }
+  }
+
+  addPlugin (plugin) {
+    return this.plugins.push(plugin)
   }
 
   addCommand (name, command, info = 'no info') {
