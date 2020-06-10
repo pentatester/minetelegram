@@ -1,0 +1,11 @@
+{
+    "name": "Minetelegram",
+    "description": "Minecraft telegram bridge",
+    "repository": "https://github.com/hexatester/minetelegram",
+    "keywords": [
+        "node",
+        "minecraft",
+        "telegram",
+        "bot"
+    ]
+}
