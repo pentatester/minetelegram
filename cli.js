@@ -1,9 +1,7 @@
-const VERSION = '0.8.0'
+// Cli
 
-const inject = require('./index')
-
+const { createMinetelegram, VERSION } = require('./index')
 const { ArgumentParser } = require('argparse')
-const { createBot } = require('mineflayer')
 
 const parser = new ArgumentParser({
   version: VERSION,
@@ -17,24 +15,6 @@ parser.addArgument(['-t', '--token'], {
 parser.addArgument(['-i', '--id'], {
   help: 'your telegram user id, get your id from @myidbot',
   required: true
-})
-parser.addArgument(['-u', '--username'], {
-  help: 'minecraft username / email',
-  required: true
-})
-parser.addArgument(['-p', '--password'], {
-  help: 'minecraft password, only for online-mode=true servers '
-})
-parser.addArgument(['-s', '--server'], {
-  defaultValue: 'localhost',
-  help: 'minecraft server address, default : "localhost"'
-})
-parser.addArgument(['--port'], {
-  defaultValue: 25565,
-  help: 'minecraft server port, default : 25565'
-})
-parser.addArgument(['-mcv', '--mcversion'], {
-  help: 'minecraft version, eg "1.13.2"'
 })
 parser.addArgument(['-c', '--chat'], {
   defaultValue: 'on',
@@ -74,17 +54,9 @@ function getBool (prop, defaults) {
 }
 
 const args = parser.parseArgs()
-const botOptions = {
-  host: args.server || 'localhost',
-  port: args.port || 25565,
-  username: args.username,
-  password: args.password,
-  'online-mode': typeof args.password === 'string',
-  version: args.mcversion || false
-}
 
 const echo = args.echo && args.echo === 'on'
-const telegramOptions = {
+const minetelegramOptions = {
   token: args.token,
   user: args.id,
   echo,
@@ -98,9 +70,6 @@ const telegramOptions = {
   message: getBool(args.message, false)
 }
 
-const bot = createBot(botOptions)
-inject(bot, telegramOptions)
+const minetelegram = createMinetelegram(minetelegramOptions)
 
-bot.on('error', err => {
-  console.log('Ooops, encountered an error', err)
-})
+minetelegram.launch()

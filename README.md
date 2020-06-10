@@ -32,9 +32,8 @@ minetelegram --token BOT_TOKEN --id TELEGRAM_USER_ID --username myusername --ser
 If you stuck? do `minetelegram --help`
 
 ```txt
-usage: minetelegram [-h] [-v] -t TOKEN -i ID -u USERNAME [-p PASSWORD] [-s SERVER]
-                [--port PORT] [-mcv MCVERSION] [-c {on,off}] [-w {on,off}]
-                [-m {on,off}] [-f FILTERS] [-e {on,off}]
+usage: minetelegram [-h] [-v] -t TOKEN -i ID [-c {on,off}] [-w {on,off}]
+              [-m {on,off}] [-f FILTERS] [-e {on,off}]
 
 
 Minecraft - Telegram bridge
@@ -45,15 +44,6 @@ Optional arguments:
   -t TOKEN, --token TOKEN
                         telegram bot token, created from @botfather
   -i ID, --id ID        your telegram user id, get your id from @myidbot
-  -u USERNAME, --username USERNAME
-                        minecraft username / email
-  -p PASSWORD, --password PASSWORD
-                        minecraft password, only for online-mode=true servers
-  -s SERVER, --server SERVER
-                        minecraft server address, default : "localhost"
-  --port PORT           minecraft server port, default : 25565
-  -mcv MCVERSION, --mcversion MCVERSION
-                        minecraft version, eg "1.13.2"
   -c {on,off}, --chat {on,off}
                         Send every chat to telegram, default : on
   -w {on,off}, --whisper {on,off}
@@ -73,23 +63,34 @@ Optional arguments:
 ### As mineflayer plugin
 
 ```js
-const mineflayer = require("mineflayer");
-const bot = mineflayer.createBot({
-  host: "localhost", // optional
+const { createMinetelegram } = require('minetelegram')
+
+const minetelegramOptions = {
+  token: TOKEN,
+  user: USER,
+  echo: true,
+  filters: [], // default filters for bot
+  commands: {}, // default commands? not recomended
+  chat: true, // send minecraft chat to telegram
+  whisper: true, // send minecraft whisper to telegram
+  message: false // send all minecraft message to telegram, enabling this will overide chat & whisper to false
+}
+
+const minetelegram = createMinetelegram(minetelegramOptions)
+
+// add your code here
+// to create a bot instance
+const bot = minetelegram.createBot({
+  host: 'localhost', // optional
   port: 25565, // optional
-  username: "email@example.com", // email and password are required only for
-  password: "12345678", // online-mode=true servers
-  version: false, // false corresponds to auto version detection (that's the default), put for example "1.8.8" if you need a specific version
-});
+  username: 'email@example.com', // email and password are required only for
+  password: '12345678', // online-mode=true servers
+  version: false // false corresponds to auto version detection (that's the default), put for example "1.8.8" if you need a specific version
+})
 
-const minetelegram = require("minetelegram");
-const telegramOptions = {
-  token: BOT_TOKEN, // telegram bot token, created from @botfather,
-  user: TELEGRAM_ID, // your telegram user id, get your id from @myidbot
-  echo: true, // echo everything to console?, default : true
-};
+// add your code here
 
-minetelegram(bot, telegramOptions);
+minetelegram.launch()
 ```
 
 #### API
@@ -110,29 +111,30 @@ TL;DR
 `bot.addToIgnore(text)` to ignore text / message to be sent when listen mode is enabled
 `bot.sendMessage(message)` send text message to telegram.
 
-##### Adding commands
+##### Adding command
 
-You can add new telegram commands, adding object at `commands` key on telegramOptions.
+Using `Minetelegram.addCommand()` method.
 
 Example
 
 ```js
-function sayHi() {
-  return bot.chat("Hi!");
+const minetelegram = createMinetelegram(minetelegramOptions)
+
+const bot = minetelegram.createBot({
+  host: 'localhost', // optional
+  port: 25565, // optional
+  username: 'email@example.com', // email and password are required only for
+  password: '12345678', // online-mode=true servers
+  version: false // false corresponds to auto version detection (that's the default), put for example "1.8.8" if you need a specific version
+})
+
+function sayHi () {
+  return bot.chat('Hi!')
 }
 
-const myCommands = {
-  say_hi: sayHi, // send /say_hi on telegram to execute sayHi
-};
+minetelegram.addCommand('hi', sayHi, 'Send Hi! to chat')
 
-const telegramOptions = {
-  token: BOT_TOKEN, // telegram bot token, created from @botfather,
-  user: TELEGRAM_ID, // your telegram user id, get your id from @myidbot
-  echo: true, // echo everything to console?, default : true
-  commands: myCommands,
-};
-
-minetelegram(bot, telegramOptions);
+minetelegram(bot, telegramOptions)
 ```
 
 ## Roadmap
