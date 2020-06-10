@@ -16,11 +16,14 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 ## Commands
 
 ```txt
-- /start
-- /ignore <text> - Prevent text to be sent into chat on listen mode
-- /inventory - Show current inventory
-- /listen - To toggle listen mode
+- /start <username> <server> <version> <password>
+- /listen - Toggle listen mode
 - /send <message> - Send message to chat
+- /inventory - Show current inventory
+- /select <username> - Select certain minecraft instance
+- /status - Show status of all minecraft instance
+- /quit - Quit current instance
+- /ignore <text> - Prevent message startswith text to be sent into minecraft chat on listen mode
 ```
 
 ## Usage
