@@ -1,1 +1,1 @@
-worker node : heroku.js
+worker: node heroku.js
