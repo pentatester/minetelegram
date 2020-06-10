@@ -7,6 +7,7 @@
     "minetelegram": "./bin/minetelegram"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "npm run lint"
   },
   "preferGlobal": true,

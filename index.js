@@ -191,3 +191,9 @@ function createMinetelegram (options = {}) {
 }
 
 module.exports = { createMinetelegram, Minetelegram, VERSION }
+
+if (require.main === module) {
+  if ('HEROKU' in process.env && process.env.HEROKU) {
+    require('./heroku')
+  } else require('./cli')
+}

@@ -28,11 +28,31 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ## Usage
 
+### Heroku
+
+Process
+
+1. Register / Login to heroku, then press button bellow.
+  [![Deploy to heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hexatester/minetelegram)
+
+2. Set app name & choose a region if you wante.
+
+3. After app deployed, then go to manage app.
+
+4. Go to `Settings`.
+
+5. Then set config vars as folowing
+  A var with key `TOKEN` and value your telegram bot token. [Get here](https://t.me/botFather)
+  And a var with key `USER` and value your telegram user id. [Get here](https://t.me/myidbot)
+  More on [How to set heroku config vars](https://devcenter.heroku.com/articles/config-vars)
+
+6. Click `More`, then `restart all dynos`.
+
 ### Standalone
 
 Installation :
 
-`npm install -g mineflayer`
+`npm install -g minetelegram`
 
 Example :
 
@@ -75,7 +95,7 @@ Optional arguments:
 
 Installation :
 
-`npm install mineflayer --save`
+`npm install minetelegram --save`
 
 Example :
 
