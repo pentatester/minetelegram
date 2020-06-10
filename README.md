@@ -4,6 +4,8 @@
 [![NPM version](https://img.shields.io/node/v/minetelegram)](https://www.npmjs.com/package/minetelegram)
 [![License](https://img.shields.io/npm/l/minetelegram)](https://github.com/hexatester/minetelegram/blob/master/LICENSE)
 
+[![Deploy to heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hexatester/minetelegram)
+
 Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ## Features
