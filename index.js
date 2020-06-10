@@ -6,6 +6,7 @@ const assert = require('assert')
 const commands = require('./lib/commands')
 const inventory = require('./lib/inventory')
 const minecraft = require('./lib/minecraft')
+const { boolOrDefault } = require('./lib/utils')
 
 class Minetelegram {
   constructor (options = {}) {
@@ -26,13 +27,16 @@ class Minetelegram {
     this.plugins = plugins.filter(plugin => typeof plugin === 'function')
     this.defaults = {
       filters: options.filters || [],
-      chatEnabled: options.chat || true,
-      whisperEnabled: options.whisper || true,
-      messageEnabled: options.message || false,
-      echoEnabled: options.echo || true,
+      chatEnabled: boolOrDefault(options.chat, true),
+      whisperEnabled: boolOrDefault(options.whisper, true),
+      messageEnabled: boolOrDefault(options.message, false),
+      echoEnabled: boolOrDefault(options.echo, true),
       chatExtra: {
-        disable_web_page_preview: options.disable_web_page_preview || true,
-        disable_notification: options.disable_notification || true
+        disable_web_page_preview: boolOrDefault(
+          options.disable_web_page_preview,
+          true
+        ),
+        disable_notification: boolOrDefault(options.disable_notification, true)
       }
     }
     this.overide = true
