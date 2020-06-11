@@ -37,7 +37,8 @@ class Minetelegram {
           true
         ),
         disable_notification: boolOrDefault(options.disable_notification, true)
-      }
+      },
+      telegramSendDelta: 1000
     }
     this.overide = true
     this.instances = {}
@@ -80,6 +81,9 @@ class Minetelegram {
       },
       getStatus: bot => {
         return this.getStatus(bot)
+      },
+      getCurrent: () => {
+        return this.current
       }
     }
     this.telegraf = telegraf
@@ -129,6 +133,9 @@ class Minetelegram {
       user: this.user
     })
     if (this.overide) this.bot = bot
+    bot.once('login', () => {
+      return bot.telegram.sendMessage(this.user, `Logged in ${bot.username}`)
+    })
     return bot
   }
 
@@ -136,9 +143,9 @@ class Minetelegram {
     function status ({ username, health, food, game }) {
       return `
       ${username}
-Health    : ${health}
-Food      : ${food}
-Dimension : ${game.dimension}
+Health    : ${health || '-'}
+Food      : ${food || '-'}
+Dimension : ${game ? game.dimension : '-'}
       `
     }
     if (bot) return status(bot)
