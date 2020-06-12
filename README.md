@@ -14,6 +14,14 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 - Listen mode
 - Pm / Whisper notification
 
+## Roadmap / Upcoming Features
+
+- Auto reconnect
+- Support inventory
+- Chest interact
+- Fishing
+- Simple navigation
+
 ## Commands
 
 ```txt
@@ -33,27 +41,34 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 Process
 
-1. Register / Login to heroku, then press button bellow.
-  [![Deploy to heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hexatester/minetelegram)
+1. Register / Login to heroku.
 
-2. Set app name & choose a region if you wante.
+2. Then press the [![Deploy to heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hexatester/minetelegram) button.
 
-3. After app deployed, then go to manage app.
+3. Set app name & choose a region if you want.
 
-4. Go to `Settings`.
+4. Then set config vars as folowing
+   A var with key `HEROKU` set the value to `YES`.
+   A var with key `TOKEN` set the value to your telegram bot token, [Get here](https://t.me/botFather).
+   A var with key `USER` set the value to your telegram user id, [Get here](https://t.me/myidbot).
+   More on [How to set heroku config vars](https://devcenter.heroku.com/articles/config-vars)
 
-5. Then set config vars as folowing
-  A var with key `TOKEN` and value your telegram bot token. [Get here](https://t.me/botFather)
-  And a var with key `USER` and value your telegram user id. [Get here](https://t.me/myidbot)
-  More on [How to set heroku config vars](https://devcenter.heroku.com/articles/config-vars)
+5. After app deployed, then go to manage app.
 
-6. Click `More`, then `restart all dynos`.
+6. Go to `Resource` tab.
+
+7. Disable web dyno, enable worker dyno.
+   Click pencil / edit button of `web npm start` then set tick off (disable), confirm.
+   Click pencil / edit button of `worker node heroku.js` then set tick off (enable), confirm.
+
+8. Finally, restart the dynos.
+   Click `More` button (top right corner), then `Restart all dynos`, comfirm.
 
 ### Standalone
 
-Installation :
+Installation / update:
 
-`npm install -g minetelegram`
+`npm install -g minetelegram@latest`
 
 Example :
 
@@ -65,7 +80,7 @@ If you stuck? do `minetelegram --help`
 
 ```txt
 usage: minetelegram [-h] [-v] -t TOKEN -i ID [-c {on,off}] [-w {on,off}]
-              [-m {on,off}] [-f FILTERS] [-e {on,off}]
+                [-m {on,off}] [-f FILTERS] [-e {on,off}]
 
 
 Minecraft - Telegram bridge
@@ -117,10 +132,10 @@ const minetelegramOptions = {
 
 const minetelegram = createMinetelegram(minetelegramOptions)
 
-// add your code here !!!
+// add your default commands here !!!
+// minetelegram.addCommand('hi', function, 'test')
 
 // add plugin to use in each instance of bot
-
 function somePlugin (bot) {
   function someFunction() {
     bot.chat('Yay!');
@@ -137,7 +152,7 @@ const bot = minetelegram.createBot({
   version: false // false corresponds to auto version detection (that's the default), put for example "1.8.8" if you need a specific version
 })
 
-// add your code here
+// add your code for specific bot here before minetelegram.launch()
 
 minetelegram.launch()
 ```
@@ -169,27 +184,21 @@ Example
 ```js
 const minetelegram = createMinetelegram(minetelegramOptions)
 
-const bot = minetelegram.createBot({
-  host: 'localhost', // optional
-  port: 25565, // optional
-  username: 'email@example.com', // email and password are required only for
-  password: '12345678', // online-mode=true servers
-  version: false // false corresponds to auto version detection (that's the default), put for example "1.8.8" if you need a specific version
-})
-
-function sayHi () {
+function sayHi (ctx) {
+  // get current & selected minecraft instance
+  let bot = ctx.db.getBot()
   return bot.chat('Hi!')
 }
 
 minetelegram.addCommand('hi', sayHi, 'Send Hi! to chat')
 
-minetelegram(bot, telegramOptions)
+const bot = minetelegram.createBot({
+  host: 'localhost', // optional
+  port: 25565, // optional
+  username: 'email@example.com', // email and password are required only for
+  password: '12345678', // online-mode=true servers
+  version: false // false corresponds to auto version detection (that's the default), put for example '1.8.8' if you need a specific version
+})
+
+minetelegram.launch()
 ```
-
-## Roadmap
-
-- Support inventory
-- Markdown
-- Chest interact
-- Fishing
-- Simple navigation
