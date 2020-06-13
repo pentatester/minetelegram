@@ -32,7 +32,7 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 - /select <username> - Select certain minecraft instance
 - /status - Show status of all minecraft instance
 - /quit - Quit current instance
-- /ignore <text> - Prevent message startswith text to be sent into minecraft chat on listen mode
+- /filter <text> - Filter chat / message, prevent sent to telegram
 ```
 
 ## Usage

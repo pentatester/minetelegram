@@ -42,13 +42,14 @@ class Minetelegram {
     }
     this.overide = true
     this.instances = {}
+    this.botOptions = {}
     this.current = null
     this.ignoredCommands = [
       '/start',
       '/listen',
       '/set',
       '/send',
-      '/ignore',
+      '/filter',
       '/help'
     ]
     this.userCommands = ['User commands :']
@@ -84,6 +85,11 @@ class Minetelegram {
       },
       getCurrent: () => {
         return this.current
+      },
+      getBotOptions: username => {
+        if (username && username in this.botOptions) {
+          return this.botOptions[username]
+        }
       }
     }
     this.telegraf = telegraf
