@@ -25,14 +25,21 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 ## Commands
 
 ```txt
-- /start <username> <server> <version> <password>
-- /listen - Toggle listen mode
-- /send <message> - Send message to chat
-- /inventory - Show current inventory
-- /select <username> - Select certain minecraft instance
-- /status - Show status of all minecraft instance
-- /quit - Quit current instance
-- /filter <text> - Filter chat / message, prevent sent to telegram
+Commands :
+/start <username> <server> <version> <password>
+/select <username> - Select certain minecraft instance
+/status - Show status of all minecraft instance
+
+Inventory commands :
+/inventory - Show current inventory
+/equip <name> <destination> - Equip item from inventory.
+/use_item - Use / activate currently held  item.
+
+Instance commands :
+/filter <text> - Filter chat / message, prevent sent to telegram
+/listen - Toggle listen mode
+/send <message> - Send message to chat
+/quit - Quit current instance
 ```
 
 ## Usage
