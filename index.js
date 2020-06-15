@@ -47,10 +47,15 @@ class Minetelegram {
     this.ignoredCommands = [
       '/start',
       '/listen',
-      '/set',
+      '/select',
       '/send',
+      '/status',
       '/filter',
-      '/help'
+      '/inventory',
+      '/equip',
+      '/use_item',
+      '/help',
+      '/quit'
     ]
     this.userCommands = ['User commands :']
     const telegraf = new Telegraf(this.token)
