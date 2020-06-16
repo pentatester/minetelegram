@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git@github.com:hexatester/minetelegram.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "engines": {
     "node": ">=10"
   },
