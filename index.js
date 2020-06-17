@@ -53,6 +53,7 @@ class Minetelegram {
       '/filter',
       '/inventory',
       '/equip',
+      '/consume',
       '/use_item',
       '/help',
       '/quit'
