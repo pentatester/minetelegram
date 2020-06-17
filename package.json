@@ -1,6 +1,6 @@
 {
   "name": "@hexatester/minetelegram",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Minecraft - Telegram bridge, build on top of mineflayer & telegraf.",
   "main": "index.js",
   "bin": {
