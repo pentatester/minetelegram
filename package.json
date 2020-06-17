@@ -1,5 +1,5 @@
 {
-  "name": "@hexatester/minetelegram",
+  "name": "minetelegram",
   "version": "1.2.0",
   "description": "Minecraft - Telegram bridge, build on top of mineflayer & telegraf.",
   "main": "index.js",
