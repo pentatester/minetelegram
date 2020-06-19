@@ -55,6 +55,7 @@ class Minetelegram {
       '/equip',
       '/consume',
       '/use_item',
+      '/toss',
       '/help',
       '/quit'
     ]
