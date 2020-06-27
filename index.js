@@ -56,7 +56,7 @@ class Minetelegram {
       '/consume',
       '/use_item',
       '/toss',
-      '/help',
+      '/helps',
       '/quit'
     ]
     this.userCommands = ['User commands :']
