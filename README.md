@@ -10,17 +10,16 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ## Features
 
-- Multi user support
 - Listen mode
-- Pm / Whisper notification
+- Chest interact
+- Inventory support
 
 ## Roadmap / Upcoming Features
 
 - Auto reconnect
-- Support inventory
-- Chest interact
-- Fishing
+- Multi user support
 - Simple navigation
+- Pm / Whisper notification
 
 ## Commands
 
@@ -29,13 +28,16 @@ Commands :
 /start <username> <server> <version> <password>
 /select <username> - Select certain minecraft instance
 /status - Show status of all minecraft instance
-
-Inventory commands :
-/inventory - Show current inventory
-/equip <name> <destination> - Equip item from inventory.
-/use_item - Use / activate currently held  item.
+/helps - Show this message?
 
 Instance commands :
+/consume - Consume currently held  item
+/equip <name> <destination> - Equip item from inventory
+/inventory - Show current inventory
+/use_item - Use / activate currently held  item
+/toss <name> <amount> - Toss / throw item
+/chest - Open chest / curently opened chest
+
 /filter <text> - Filter chat / message, prevent sent to telegram
 /listen - Toggle listen mode
 /send <message> - Send message to chat
