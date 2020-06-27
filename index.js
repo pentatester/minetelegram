@@ -56,6 +56,10 @@ class Minetelegram {
       '/consume',
       '/use_item',
       '/toss',
+      '/chest',
+      '/close_chest',
+      '/deposit_chest',
+      '/withdraw_chest',
       '/helps',
       '/quit'
     ]
