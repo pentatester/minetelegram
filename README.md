@@ -1,4 +1,4 @@
-# minetelegram
+[![minetelegram](https://repository-images.githubusercontent.com/263459288/9fab6000-b8c8-11ea-918b-6ba219545f7b)](https://github.com/hexatester/minetelegram/)
 
 [![NPM version](https://img.shields.io/npm/v/minetelegram?label=npm%20package)](https://www.npmjs.com/package/minetelegram)
 [![NPM version](https://img.shields.io/node/v/minetelegram)](https://www.npmjs.com/package/minetelegram)
