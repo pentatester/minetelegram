@@ -222,7 +222,7 @@ function createMinetelegram (options = {}) {
 module.exports = { createMinetelegram, Minetelegram, VERSION }
 
 if (require.main === module) {
-  if ('HEROKU' in process.env) {
+  if ('TOKEN' in process.env && 'USER' in process.env) {
     require('./heroku')
   } else require('./cli')
 }
