@@ -26,8 +26,12 @@
         "worker": {
             "quantity": 1,
             "type": "worker",
-            "command": "node heroku.js",
-            "size": "standard-1X"
+            "command": "node heroku.js"
+        },
+        "web": {
+            "quantity": 0,
+            "type": "worker",
+            "command": "node heroku.js"
         }
     },
     "website": "https://github.com/hexatester/minetelegram"
