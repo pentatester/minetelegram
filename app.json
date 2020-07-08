@@ -17,6 +17,10 @@
             "description": "Telegram user id from @myidbot.",
             "value": "USER ID HERE"
         },
+        "MESSAGE": {
+            "description": "Send every message to telegram chat, instead of chat & whisper only.",
+            "value": "YES"
+        },
         "HEROKU": {
             "description": "Dont change pls. :D",
             "value": "YES"

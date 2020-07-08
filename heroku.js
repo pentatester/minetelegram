@@ -4,8 +4,12 @@
 // TOKEN = 'telegram bot token, created from @botfather'
 // Heroku
 // USER = 'your telegram user id, get your id from @myidbot'
+
 let TOKEN = process.env.TOKEN
 let USER = process.env.USER
+let MESSAGE = process.env.MESSAGE
+  ? process.env.MESSAGE.toLowerCase() === 'yes'
+  : false
 
 if (!TOKEN) Error('Please set your telegram bot token as TOKEN in config-vars')
 if (!USER) Error('Please set your telegram user id as USER in config-vars')
@@ -20,7 +24,7 @@ const minetelegramOptions = {
   commands: {}, // default commands? not recomended
   chat: true, // send minecraft chat to telegram
   whisper: true, // send minecraft whisper to telegram
-  message: false // send all minecraft message to telegram, enabling this will overide chat & whisper to false
+  message: MESSAGE // send all minecraft message to telegram, enabling this will overide chat & whisper to false
 }
 
 const minetelegram = createMinetelegram(minetelegramOptions)
