@@ -33,7 +33,7 @@
   "dependencies": {
     "argparse": "^1.0.10",
     "enum": "^3.0.4",
-    "mineflayer": "^2.20.0",
+    "mineflayer": "^2.23.0",
     "telegraf": "^3.38.0"
   }
 }
