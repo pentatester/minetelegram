@@ -11,9 +11,10 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 
 ## Features
 
-- Listen mode
+- Supports Minecraft 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14, 1.15 and 1.16.
+- Chat listen mode
 - Chest interact
-- Inventory support
+- Simple Inventory support
 
 ## Roadmap / Upcoming Features
 
@@ -21,6 +22,7 @@ Minecraft - Telegram bridge, build on top of mineflayer &amp; telegraf.
 - Multi user support
 - Simple navigation
 - Pm / Whisper notification
+- Crafting
 
 ***
 
