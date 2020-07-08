@@ -9,7 +9,6 @@
         "bot"
     ],
     "env": {
-        "HEROKU": true,
         "TOKEN": {
             "description": "Telegram bot token from @botFather.",
             "value": "BOT TOKEN HERE"
@@ -17,6 +16,10 @@
         "USER": {
             "description": "Telegram user id from @myidbot.",
             "value": "USER ID HERE"
+        },
+        "HEROKU": {
+            "description": "Dont change pls. :D",
+            "value": "YES"
         }
     },
     "website": "https://github.com/hexatester/minetelegram"
