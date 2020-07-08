@@ -20,10 +20,6 @@
         "MESSAGE": {
             "description": "Send every message to telegram chat, instead of chat & whisper only.",
             "value": "YES"
-        },
-        "HEROKU": {
-            "description": "Dont change pls. :D",
-            "value": "YES"
         }
     },
     "website": "https://github.com/hexatester/minetelegram"
