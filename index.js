@@ -1,4 +1,4 @@
-const VERSION = '2.0.0'
+const VERSION = '3.0.0'
 
 const { Telegraf, Telegram } = require('telegraf')
 const { createBot } = require('mineflayer')
