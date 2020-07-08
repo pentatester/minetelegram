@@ -30,7 +30,7 @@
         },
         "web": {
             "quantity": 0,
-            "type": "worker",
+            "type": "web",
             "command": "node heroku.js"
         }
     },
