@@ -22,5 +22,13 @@
             "value": "YES"
         }
     },
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "type": "worker",
+            "command": "node heroku.js",
+            "size": "standard-1X"
+        }
+    },
     "website": "https://github.com/hexatester/minetelegram"
 }
