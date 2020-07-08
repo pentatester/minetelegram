@@ -1,0 +1,7 @@
+build:
+  docker:
+    worker: Dockerfile
+  config:
+    HEROKU: TRUE
+run:
+  worker: node heroku.js
