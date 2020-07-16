@@ -32,7 +32,6 @@
   "homepage": "https://github.com/hexatester/minetelegram",
   "dependencies": {
     "argparse": "^1.0.10",
-    "enum": "^3.0.4",
     "mineflayer": "^2.23.0",
     "telegraf": "^3.38.0"
   }
