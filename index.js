@@ -4,6 +4,7 @@ const { Telegraf, Telegram } = require('telegraf')
 const { createBot } = require('mineflayer')
 const assert = require('assert')
 const commands = require('./lib/commands/index')
+const callbacks = require('./lib/callbacks/index')
 const inventory = require('./lib/inventory')
 const minecraft = require('./lib/minecraft')
 const { boolOrDefault } = require('./lib/utils')
@@ -101,6 +102,9 @@ class Minetelegram {
         if (username && username in this.botOptions) {
           return this.botOptions[username]
         }
+      },
+      getUser: () => {
+        return this.user
       }
     }
     this.telegraf = telegraf
@@ -119,6 +123,7 @@ class Minetelegram {
     for (var command in this.commands) {
       this.telegraf.command(command, this.commands[command])
     }
+    this.telegraf.on('callback_query', callbacks)
     this.telegraf.on('text', this.textFilter)
     this.telegraf.launch()
   }
@@ -151,6 +156,7 @@ class Minetelegram {
     })
     if (this.overide) this.bot = bot
     bot.once('login', () => {
+      bot.lastLoggedIn = new Date()
       return bot.telegram.sendMessage(this.user, `Logged in ${bot.username}`)
     })
     return bot
