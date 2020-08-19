@@ -157,7 +157,9 @@ class Minetelegram {
     if (this.overide) this.bot = bot
     bot.once('login', () => {
       bot.lastLoggedIn = new Date()
-      return bot.telegram.sendMessage(this.user, `Logged in ${bot.username}`)
+      bot.telegram
+        .sendMessage(this.user, `Logged in ${bot.username}`)
+        .catch(err => console.error(err))
     })
     return bot
   }
