@@ -32,7 +32,7 @@
   "homepage": "https://github.com/hexatester/minetelegram",
   "dependencies": {
     "argparse": "^1.0.10",
-    "mineflayer": "^2.28.1",
+    "mineflayer": "^3.0.0",
     "telegraf": "^3.38.0"
   }
 }
